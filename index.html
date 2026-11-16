@@ -168,9 +168,11 @@
           <li><span>Omgang #${rounds.length - i} <span class="d">· ${fmtDate(r.at)}</span></span>
           <span class="score" style="color:${r.score / r.total >= .8 ? "var(--green)" : r.score / r.total >= .5 ? "var(--amber)" : "var(--red)"}">${r.score}/${r.total}</span></li>`).join("")}</ul>`
           : `<p class="empty">Ingen omgange endnu. Tryk start.</p>`}
+        <button class="btn wide" id="sync" style="margin-top:22px">⇄ Overfør fremskridt mellem enheder</button>
         <div class="foot"><button class="link" id="reset">Nulstil fremskridt</button></div>
       </main>`;
     document.getElementById("start").onclick = startRound;
+    document.getElementById("sync").onclick = syncScreen;
     document.getElementById("reset").onclick = () => {
       if (confirm("Slet al historik og fremskridt?")) { state = { progress: {}, rounds: [] }; save(); home(); }
     };
@@ -249,6 +251,70 @@
     document.getElementById("h").onclick = home;
     document.getElementById("h2").onclick = home;
     document.getElementById("again").onclick = startRound;
+  }
+
+  // ---------- overfør mellem enheder ----------
+  const PREFIX = "INDF1:";
+  function exportCode() {
+    const json = JSON.stringify(state);
+    return PREFIX + btoa(unescape(encodeURIComponent(json)));
+  }
+  function parseCode(txt) {
+    const t = (txt || "").replace(/\s+/g, "");
+    const i = t.indexOf(PREFIX);
+    if (i < 0) throw new Error("Koden skal starte med " + PREFIX);
+    const s = JSON.parse(decodeURIComponent(escape(atob(t.slice(i + PREFIX.length)))));
+    if (!s || typeof s.progress !== "object" || !Array.isArray(s.rounds)) throw new Error("Ugyldig kode");
+    return s;
+  }
+  // Fletning: omgange samles (dubletter fjernes via tidspunkt); for hvert spørgsmål
+  // vinder den enhed, der senest har svaret på det.
+  function merge(other) {
+    const seen = new Set(state.rounds.map(r => r.at));
+    let addedRounds = 0;
+    other.rounds.forEach(r => { if (!seen.has(r.at)) { state.rounds.push(r); seen.add(r.at); addedRounds++; } });
+    state.rounds.sort((a, b) => b.at - a.at);
+    let updated = 0;
+    Object.entries(other.progress).forEach(([id, p]) => {
+      const mine = state.progress[id];
+      if (!mine || (p.last || 0) > (mine.last || 0)) { state.progress[id] = p; updated++; }
+    });
+    save();
+    return { addedRounds, updated };
+  }
+  function syncScreen() {
+    const code = exportCode();
+    app.innerHTML = `
+      <header><button class="back" id="h">← Forside</button><span class="pill">⇄ Overfør</span><span></span></header>
+      <div class="bar"><div style="width:0"></div></div>
+      <main>
+        <p class="eyebrow">1 · På enheden du kommer fra</p>
+        <button class="btn primary wide" id="copy">Kopiér mine fremskridt</button>
+        <p class="sub" id="copied" style="margin:10px 0 0;min-height:20px"></p>
+        <p class="sub" style="font-size:13px;margin-top:4px">Send teksten til dig selv, fx i Noter, AirDrop eller mail.</p>
+        <p class="eyebrow" style="margin-top:26px">2 · På enheden du skifter til</p>
+        <textarea id="paste" rows="4" placeholder="Indsæt koden her (starter med INDF1:)" style="width:100%;font:inherit;font-size:14px;border:1.5px solid var(--border);border-radius:14px;padding:12px;resize:vertical;background:var(--card);color:var(--text)"></textarea>
+        <button class="btn wide" id="merge" style="margin-top:10px">Indsæt og flet</button>
+        <p class="sub" id="result" style="margin:12px 0 0;min-height:20px"></p>
+        <p class="sub" style="font-size:13px">Fletning sletter ikke noget. Omgange fra begge enheder bevares, og for hvert spørgsmål gælder dit seneste svar.</p>
+      </main>`;
+    document.getElementById("h").onclick = home;
+    document.getElementById("copy").onclick = async () => {
+      const out = document.getElementById("copied");
+      try { await navigator.clipboard.writeText(code); out.textContent = "Kopieret ✓"; out.style.color = "var(--green)"; }
+      catch (e) {
+        const ta = document.getElementById("paste"); ta.value = code; ta.focus(); ta.select();
+        out.textContent = "Kunne ikke kopiere automatisk. Koden står i feltet nedenfor, så kopiér den selv.";
+      }
+    };
+    document.getElementById("merge").onclick = () => {
+      const out = document.getElementById("result");
+      try {
+        const r = merge(parseCode(document.getElementById("paste").value));
+        out.style.color = "var(--green)";
+        out.textContent = `Flettet ✓ ${r.addedRounds} nye omgange, ${r.updated} spørgsmål opdateret.`;
+      } catch (e) { out.style.color = "var(--red)"; out.textContent = "Det virkede ikke: " + e.message; }
+    };
   }
 
   home();
