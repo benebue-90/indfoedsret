@@ -55,6 +55,7 @@
   .opt.dim { opacity: .55; }
   .feedback { min-height: 24px; font-weight: 600; margin: 6px 2px 14px; }
   .feedback.ok { color: var(--green); } .feedback.no { color: var(--red); }
+  .explain { background: #f2fbf6; border-radius: 12px; padding: 12px 14px; margin: 0 0 16px; font-size: 15px; line-height: 1.45; color: #3c4a44; }
   .actions { display: flex; justify-content: center; gap: 12px; margin-top: 8px; }
   .btn { font: inherit; font-weight: 600; font-size: 17px; border-radius: 14px; padding: 14px 26px; cursor: pointer; border: 1.5px solid var(--border); background: var(--card); color: var(--text); }
   .btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
@@ -180,7 +181,10 @@
   function startRound() {
     const qs = pickRound(Math.min(ROUND, Q.length));
     round = {
-      items: qs.map(q => ({ id: q.id, order: shuffle(q.options.map((_, i) => i)), answer: null })),
+      items: qs.map(q => {
+        const idx = q.options.map((_, i) => i);
+        return { id: q.id, order: q.options.length === 2 ? idx : shuffle(idx), answer: null }; // Ja/Nej i fast rækkefølge
+      }),
       i: 0, start: Date.now()
     };
     clearInterval(timerId);
@@ -204,6 +208,7 @@
           return `<button class="opt ${cls}" data-o="${oi}" ${answered ? "disabled" : ""}><span class="l">${L[k]}</span><span>${esc(q.options[oi])}</span></button>`;
         }).join("")}
         <div class="feedback ${answered ? (it.answer === q.correct ? "ok" : "no") : ""}">${answered ? (it.answer === q.correct ? "Rigtigt ✓" : "Forkert. Det rigtige svar er markeret med grønt.") : ""}</div>
+        ${answered && q.explain ? `<div class="explain">${esc(q.explain)}</div>` : ""}
         <div class="actions">
           ${answered ? `<button class="btn primary" id="next">${round.i + 1 < total ? "Næste →" : "Se resultat"}</button>` : ""}
         </div>
@@ -238,7 +243,7 @@
         <div class="big" style="color:${score / items.length >= .8 ? "var(--green)" : score / items.length >= .5 ? "var(--amber)" : "var(--red)"}">${score}/${items.length}</div>
         <p class="sub">${score === items.length ? "Alle rigtige!" : `${wrong.length} forkert${wrong.length === 1 ? "" : "e"}. De kommer oftere igen.`}</p>
         ${wrong.map(it => { const q = byId[it.id]; return `<div class="review"><p>${esc(q.q)}</p>
-          <div class="y">Dit svar: ${esc(q.options[it.answer])}</div><div class="c">Rigtigt: ${esc(q.options[q.correct])}</div></div>`; }).join("")}
+          <div class="y">Dit svar: ${esc(q.options[it.answer])}</div><div class="c">Rigtigt: ${esc(q.options[q.correct])}</div>${q.explain ? `<div class="d" style="margin-top:6px;color:var(--muted)">${esc(q.explain)}</div>` : ""}</div>`; }).join("")}
         <div class="actions"><button class="btn" id="h2">Forside</button><button class="btn primary" id="again">Ny omgang</button></div>
       </main>`;
     document.getElementById("h").onclick = home;
