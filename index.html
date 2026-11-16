@@ -169,7 +169,7 @@
           <li><span>Omgang #${rounds.length - i} <span class="d">· ${fmtDate(r.at)}</span></span>
           <span class="score" style="color:${r.score / r.total >= .8 ? "var(--green)" : r.score / r.total >= .5 ? "var(--amber)" : "var(--red)"}">${r.score}/${r.total}</span></li>`).join("")}</ul>`
           : `<p class="empty">Ingen omgange endnu. Tryk start.</p>`}
-        <button class="btn wide" id="sync" style="margin-top:22px">${syncCfg() ? "☁ Sync" : "⇄ Sync mellem enheder"}</button>
+        <button class="btn wide" id="sync" style="margin-top:22px">${syncCfg() ? "☁ Sync" : "☁ Sync mellem enheder"}</button>
         <p class="sub" id="syncstatus" style="margin:8px 0 0;font-size:13px;min-height:18px">${esc(syncState.msg)}</p>
         <div class="foot"><button class="link" id="reset">Nulstil fremskridt</button></div>
       </main>`;
@@ -316,20 +316,7 @@
     }
   }
 
-  // ---------- overfør mellem enheder ----------
-  const PREFIX = "INDF1:";
-  function exportCode() {
-    const json = JSON.stringify(state);
-    return PREFIX + btoa(unescape(encodeURIComponent(json)));
-  }
-  function parseCode(txt) {
-    const t = (txt || "").replace(/\s+/g, "");
-    const i = t.indexOf(PREFIX);
-    if (i < 0) throw new Error("Koden skal starte med " + PREFIX);
-    const s = JSON.parse(decodeURIComponent(escape(atob(t.slice(i + PREFIX.length)))));
-    if (!s || typeof s.progress !== "object" || !Array.isArray(s.rounds)) throw new Error("Ugyldig kode");
-    return s;
-  }
+  // ---------- fletning af fremskridt fra en anden enhed ----------
   // Fletning: omgange samles (dubletter fjernes via tidspunkt); for hvert spørgsmål
   // vinder den enhed, der senest har svaret på det.
   function merge(other) {
@@ -347,7 +334,6 @@
   }
   function syncScreen() {
     screen = "sync";
-    const code = exportCode();
     const cfg = syncCfg();
     const tokenUrl = "https://github.com/settings/tokens/new?scopes=gist&description=Indf%C3%B8dsret%20quiz";
     const field = "width:100%;font:inherit;font-size:14px;border:1.5px solid var(--border);border-radius:14px;padding:12px;background:var(--card);color:var(--text)";
@@ -369,16 +355,6 @@
           <button class="btn primary wide" id="connect" style="margin-top:10px">Forbind</button>
           <p class="sub" id="syncstatus" style="margin:10px 0 0;min-height:20px"></p>
           <p class="sub" style="font-size:13px">Du kan genbruge den samme nøgle på telefon og laptop.</p>`}
-        <p class="eyebrow" style="margin-top:30px">Eller manuelt: kopiér og indsæt</p>
-        <p class="eyebrow">1 · På enheden du kommer fra</p>
-        <button class="btn primary wide" id="copy">Kopiér mine fremskridt</button>
-        <p class="sub" id="copied" style="margin:10px 0 0;min-height:20px"></p>
-        <p class="sub" style="font-size:13px;margin-top:4px">Send teksten til dig selv, fx i Noter, AirDrop eller mail.</p>
-        <p class="eyebrow" style="margin-top:26px">2 · På enheden du skifter til</p>
-        <textarea id="paste" rows="4" placeholder="Indsæt koden her (starter med INDF1:)" style="width:100%;font:inherit;font-size:14px;border:1.5px solid var(--border);border-radius:14px;padding:12px;resize:vertical;background:var(--card);color:var(--text)"></textarea>
-        <button class="btn wide" id="merge" style="margin-top:10px">Indsæt og flet</button>
-        <p class="sub" id="result" style="margin:12px 0 0;min-height:20px"></p>
-        <p class="sub" style="font-size:13px">Fletning sletter ikke noget. Omgange fra begge enheder bevares, og for hvert spørgsmål gælder dit seneste svar.</p>
       </main>`;
     document.getElementById("h").onclick = home;
     const sn = document.getElementById("syncnow");
@@ -399,22 +375,6 @@
         const s = document.getElementById("syncstatus");
         if (s && r) s.textContent = `✓ Forbundet. ${r.addedRounds} omgange og ${r.updated} spørgsmål hentet fra den anden enhed.`;
       } catch (e) { setSyncCfg(null); cn.disabled = false; out.style.color = "var(--red)"; out.textContent = "Det virkede ikke: " + e.message; }
-    };
-    document.getElementById("copy").onclick = async () => {
-      const out = document.getElementById("copied");
-      try { await navigator.clipboard.writeText(code); out.textContent = "Kopieret ✓"; out.style.color = "var(--green)"; }
-      catch (e) {
-        const ta = document.getElementById("paste"); ta.value = code; ta.focus(); ta.select();
-        out.textContent = "Kunne ikke kopiere automatisk. Koden står i feltet nedenfor, så kopiér den selv.";
-      }
-    };
-    document.getElementById("merge").onclick = () => {
-      const out = document.getElementById("result");
-      try {
-        const r = merge(parseCode(document.getElementById("paste").value));
-        out.style.color = "var(--green)";
-        out.textContent = `Flettet ✓ ${r.addedRounds} nye omgange, ${r.updated} spørgsmål opdateret.`;
-      } catch (e) { out.style.color = "var(--red)"; out.textContent = "Det virkede ikke: " + e.message; }
     };
   }
 
