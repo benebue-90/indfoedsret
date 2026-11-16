@@ -1,6 +1,6 @@
 # Indfødsret quiz
 
-Quiz app for training the user's own mistakes from indfødsretstest.dk. It is a single `index.html` page and a `questions.js` data file, served on GitHub Pages (`benebue-90/indfoedsret`). The user opens it from their iPhone home screen. Progress and round history live in the phone's localStorage under key `indf-v1`, keyed by question `id`.
+Quiz app for training the user's own mistakes from indfødsretstest.dk. It is a single `index.html` page and a `questions.js` data file, served on GitHub Pages (`benebue-90/indfoedsret`). The user opens it from their iPhone home screen. Progress and round history live in the phone's localStorage under key `indf-v1`, keyed by question `id`. Optional sync: each device stores a GitHub token (gist scope only) in localStorage key `indf-sync`, and the app merges its progress with a private gist file `indfoedsret-progress.json` when it opens and after each round. Runs are merged by timestamp, and for each question the most recent answer wins. A manual copy/paste code (`INDF1:` prefix) is kept as a fallback.
 
 ## Adding new screenshots (the recurring task)
 1. The user saves iPhone screenshots in dated subfolders such as `screenshots/Nov 16 2026/`. These folders are the user's own backup, so never move, rename or delete them. `screenshots/` is gitignored and never pushed.
