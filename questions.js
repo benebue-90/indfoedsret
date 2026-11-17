@@ -199,5 +199,27 @@ window.QUESTIONS = [
     explain: "Kvinder fik først valgret i 1915 – ikke med grundloven i 1849." },
   { id: "priser-steget-mest", q: "På hvilke af følgende dagligvarer er priserne i butikkerne steget mest det seneste år (fra oktober 2024 til oktober 2025 ifølge Danmarks Statistiks Forbrugerprisindeks)?",
     options: ["Friske grøntsager", "Mel og gryn", "Okse- og kalvekød"], correct: 2, misses: 1,
-    explain: "Okse- og kalvekød har haft de største prisstigninger det seneste år (fra oktober 2024 til oktober 2025 ifølge Danmarks Statistiks Forbrugerprisindeks)." }
+    explain: "Okse- og kalvekød har haft de største prisstigninger det seneste år (fra oktober 2024 til oktober 2025 ifølge Danmarks Statistiks Forbrugerprisindeks)." },
+  // --- Batch: Nov 17 2026 ---
+  { id: "venstre-stemmer-1800", q: "Hvilken af følgende befolkningsgrupper fik partiet Venstre flest stemmer fra i slutningen af 1800-tallet?",
+    options: ["Godsejere", "Arbejdere", "Bønder"], correct: 2, misses: 1,
+    explain: "I slutningen af 1800-tallet fik partiet Venstre især sine stemmer fra bønderne." },
+  { id: "ordet-drama", q: "Hvem skrev det drama, som Carl Th. Dreyers film Ordet fra 1955 bygger på?",
+    options: ["Knut Hamsun", "Martin Andersen Nexø", "Kaj Munk"], correct: 2, misses: 1,
+    explain: "Carl Th. Dreyers film Ordet (1955) bygger på et drama skrevet af Kaj Munk." },
+  { id: "samlingsregering-besaettelse", q: "Under hvilket partis ledelse fortsatte den danske samlingsregering under den tyske besættelse?",
+    options: ["Socialdemokratiet", "Venstre", "Det Konservative Folkeparti"], correct: 0, misses: 1,
+    explain: "Under den tyske besættelse var den danske samlingsregering ledet af Socialdemokratiet." },
+  { id: "grundfjeldet", q: "Hvor i Danmark kan man se grundfjeldet?",
+    options: ["På Møn og Falster", "I Nordjylland omkring Skagen", "På Bornholm og Ertholmene"], correct: 2, misses: 1,
+    explain: "Det danske grundfjeld er synligt på Bornholm og Ertholmene." },
+  { id: "joedisk-helligdag", q: "Hvilken højtid er den vigtigste helligdag i det jødiske år?",
+    options: ["Hanukkah", "Pesach", "Yom Kippur"], correct: 2, misses: 1,
+    explain: "Yom Kippur, forsoningsdagen, er den vigtigste helligdag i det jødiske år." },
+  { id: "underskrifter-opstilling", q: "Hvem skal godkende de underskrifter, et parti samler ind for at blive opstillingsberettiget til folketingsvalg?",
+    options: ["Statsministeren", "Folketingets formand", "Indenrigsministeren"], correct: 2, misses: 1,
+    explain: "Indenrigsministeren godkender de underskrifter, et parti indsamler for at blive opstillingsberettiget til folketingsvalg." },
+  { id: "faeroeernes-stoerste-by", q: "Hvad hedder Færøernes største by?",
+    options: ["Reykjavik", "Nuuk", "Tórshavn"], correct: 2, misses: 1,
+    explain: "Færøernes største by er Tórshavn, som også er øgruppens administrative og kulturelle centrum." }
 ];
