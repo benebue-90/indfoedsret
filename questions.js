@@ -300,5 +300,28 @@ window.QUESTIONS = [
     explain: "En dansk statsborger kan ikke fratages sit statsborgerskab ved dom, hvis personen derved bliver statsløs." },
   { id: "paaskekrisen-1920", q: "Hvem afskedigede regeringen under Påskekrisen i 1920?",
     options: ["Frederik 9.", "Christian 9.", "Christian 10."], correct: 2, misses: 1,
-    explain: "Kong Christian 10. afskedigede regeringen under Påskekrisen i 1920." }
+    explain: "Kong Christian 10. afskedigede regeringen under Påskekrisen i 1920." },
+
+  // --- Batch: Nov 19 2026 ---
+  { id: "haandfaestning", q: "Hvad kunne adelen bruge en håndfæstning til over for en ny konge?",
+    options: ["Give kongen ret til selv at udpege sin arving", "Tvinge kongen til at dele magten med adelen", "Kræve, at adelen ikke skulle deltage i krig"], correct: 1, misses: 1,
+    explain: "Adelen brugte håndfæstninger til at tvinge nye konger til at dele magten med dem." },
+  { id: "metoo-2020", q: "Hvem satte i 2020 for alvor Me-Too-bevægelsen i gang i Danmark med en tale ved et gallashow?",
+    options: ["Skuespilleren Ghita Nørby", "Tv-værten Sofie Linde", "Statsminister Mette Frederiksen"], correct: 1, misses: 1,
+    explain: "I 2020 satte tv-værten Sofie Linde for alvor MeToo-bevægelsen i gang i Danmark med en tale ved et gallashow." },
+  { id: "seminarier-1700", q: "Hvilken opgave fik seminarierne, da de blev dannet i slutningen af 1700-tallet?",
+    options: ["At uddanne lærere", "At uddanne præster", "At undervise voksne i læsning og skrivning"], correct: 0, misses: 1,
+    explain: "I slutningen af 1700-tallet blev seminarier oprettet for at uddanne lærere." },
+  { id: "partier-interesseorganisationer", q: "Hvordan har båndene mellem partierne og interesseorganisationerne udviklet sig gennem de seneste cirka 25 år?",
+    options: ["De er blevet skrevet ind i faste, skriftlige aftaler", "De er blevet tættere", "De er blevet løsere"], correct: 2, misses: 1,
+    explain: "I løbet af de seneste cirka 25 år er båndene mellem politiske partier og interesseorganisationer i Danmark blevet løsere." },
+  { id: "jernmalm-nordsverige", q: "Hvilken råvare fra Nordsverige var den tyske krigsførelse under 2. verdenskrig særligt afhængig af at få leveret?",
+    options: ["Råolie", "Kul", "Jernmalm"], correct: 2, misses: 1,
+    explain: "Den tyske krigsførelse under Anden Verdenskrig var særligt afhængig af jernmalm fra Nordsverige." },
+  { id: "mads-mikkelsen-cannes", q: "For hvilken filmrolle fik Mads Mikkelsen prisen som bedste mandlige skuespiller ved Cannes Filmfestival?",
+    options: ["Lucas i Jagten", "Le Chiffre i Casino Royale", "Martin i Druk"], correct: 0, misses: 1,
+    explain: "Mads Mikkelsen vandt prisen for bedste mandlige skuespiller ved Cannes Filmfestival for rollen som Lucas i filmen Jagten." },
+  { id: "groenland-2-verdenskrig", q: "Hvem besatte Grønland under 2. Verdenskrig?",
+    options: ["Tyskland besatte Grønland", "Storbritannien besatte Grønland", "Ingen – Grønland blev ikke besat"], correct: 2, misses: 1,
+    explain: "Selvom Danmark blev besat, blev Grønland ikke besat under 2. Verdenskrig." }
 ];
