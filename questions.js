@@ -277,5 +277,28 @@ window.QUESTIONS = [
     explain: "Den amerikanske base i Nordgrønland hedder i dag Pituffik Space Base." },
   { id: "frihedsstoetten", q: "Hvad markerer Frihedsstøtten i København?",
     options: ["Grundlovens indførelse", "Sejren i Slaget på Reden", "Stavnsbåndets ophævelse"], correct: 2, misses: 1,
-    explain: "Frihedsstøtten i København markerer stavnsbåndets ophævelse i 1788." }
+    explain: "Frihedsstøtten i København markerer stavnsbåndets ophævelse i 1788." },
+
+  // --- Batch: Nov 18 2026 (del 2) ---
+  { id: "undervisningspligt", q: "Hvad kaldes danske børns pligt til at modtage undervisning i ti år?",
+    options: ["Uddannelsespligt", "Undervisningspligt", "Skolepligt"], correct: 1, misses: 1,
+    explain: "I Danmark kaldes børns pligt til at modtage undervisning i ti år \"undervisningspligt\"." },
+  { id: "farskibet", q: "Hvem har skrevet debutbogen Farskibet fra 2021?",
+    options: ["Glenn Bech", "Helle Helle", "Thomas Korsgaard"], correct: 0, misses: 1,
+    explain: "Glenn Bech udgav i 2021 sin debutbog \"Farskibet\"." },
+  { id: "stoerste-skov-foer-rold", q: "Hvilken skov er Danmarks største, målt før Rold Skov?",
+    options: ["Grib Skov i Nordsjælland", "Silkeborg Vesterskov", "Almindingen på Bornholm"], correct: 0, misses: 1,
+    explain: "Grib Skov i Nordsjælland var Danmarks største skov før Rold Skov." },
+  { id: "landstinget-1849", q: "Hvad var kravet for at kunne blive valgt til Landstinget efter grundloven i 1849?",
+    options: ["At man var en mand over 30 år", "At man var fyldt 40 år og havde en høj indkomst", "At man var fyldt 25 år"], correct: 1, misses: 1,
+    explain: "Efter grundloven af 1849 skulle man være mindst 40 år og have en høj indkomst for at blive valgt til Landstinget." },
+  { id: "operaen-arkitekt", q: "Hvilken dansk arkitekt står bag Operaen i København fra 2005?",
+    options: ["Jørn Utzon", "Arne Jacobsen", "Henning Larsen"], correct: 2, misses: 1,
+    explain: "Operaen i København, indviet i 2005, er tegnet af den danske arkitekt Henning Larsen." },
+  { id: "fratage-statsborgerskab", q: "Hvornår kan en dansk statsborger ikke fratages sit statsborgerskab ved en dom?",
+    options: ["Hvis personen har bopæl i udlandet", "Hvis personen derved bliver statsløs", "Hvis personen er født i Danmark"], correct: 1, misses: 1,
+    explain: "En dansk statsborger kan ikke fratages sit statsborgerskab ved dom, hvis personen derved bliver statsløs." },
+  { id: "paaskekrisen-1920", q: "Hvem afskedigede regeringen under Påskekrisen i 1920?",
+    options: ["Frederik 9.", "Christian 9.", "Christian 10."], correct: 2, misses: 1,
+    explain: "Kong Christian 10. afskedigede regeringen under Påskekrisen i 1920." }
 ];
