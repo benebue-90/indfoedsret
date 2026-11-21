@@ -12,4 +12,4 @@ Quiz app for training the user's own mistakes from indfødsretstest.dk. It is a 
 5. Validate the data with node (ids unique, `correct` in range). Append the new filenames to `processed.txt`, then commit and push.
 6. Report how many questions are new, how many were repeats, and which images were skipped or unclear.
 
-The weighting (Leitner boxes 0–4) lives in `index.html`. Every question keeps some weight, so questions the user has got right still come back now and then.
+The weighting (Leitner boxes 0–4) lives in `index.html`. Svag (box 0–1) and På vej (box 2–3) are strongly prioritised; Sikker (box 4) comes back rarely. A question answered right 5 times in a row (`streak >= 5`) is "Lært" and no longer asked (user's request, 2026-11-21); a wrong answer elsewhere isn't possible then, so it stays retired unless progress is reset.
