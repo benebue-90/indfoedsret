@@ -364,5 +364,13 @@ window.QUESTIONS = [
     explain: "Flyvepladsen i Aalborg fungerede som mellemstation for de tyske styrker ved besættelsen i 1940." },
   { id: "gobeliner-christiansborg", q: "Hvem var modtageren af gobelinerne på Christiansborg, som erhvervsorganisationer og virksomheder gav i gave?",
     options: ["Statsministeren, til Christiansborgs indvielse", "Dronningen, til hendes 50-års fødselsdag", "Folketingets formand, ved Grundlovens jubilæum"], correct: 1, misses: 1,
-    explain: "Gobelinerne på Christiansborg blev foræret af erhvervsorganisationer og virksomheder til dronningen i anledning af hendes 50-års fødselsdag." }
+    explain: "Gobelinerne på Christiansborg blev foræret af erhvervsorganisationer og virksomheder til dronningen i anledning af hendes 50-års fødselsdag." },
+
+  // --- Batch: Nov 21 2026 (del 2) ---
+  { id: "olie-nordsoeen-1980", q: "Hvor blev der i 1980'erne udvundet mere olie, hvilket var med til at få olieprisen til at falde igen?",
+    options: ["I Nordsøen", "I Middelhavet", "I Østersøen"], correct: 0, misses: 1,
+    explain: "I 1980'erne førte øget olieudvinding i Nordsøen til et fald i oliepriserne." },
+  { id: "rusland-1850", q: "Hvilken stormagt pressede Det Tyske Forbund og Preussen til at trække deres tropper ud af den 1. slesvigske krig i 1850?",
+    options: ["Storbritannien", "Rusland", "Frankrig"], correct: 1, misses: 1,
+    explain: "I 1850 pressede Rusland Det Tyske Forbund og Preussen til at trække deres tropper ud af den 1. slesvigske krig." }
 ];
