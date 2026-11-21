@@ -4,7 +4,7 @@ Quiz app for training the user's own mistakes from indfødsretstest.dk. It is a 
 
 ## Adding new screenshots (the recurring task)
 1. The user saves iPhone screenshots in dated subfolders such as `screenshots/Nov 16 2026/`. These folders are the user's own backup, so never move, rename or delete them. `screenshots/` is gitignored and never pushed.
-2. `screenshots/processed.txt` lists the filenames that are already done. Process only the files that are not in that list.
+2. `screenshots/processed.txt` lists the filenames that are already done. Process only the files that are not in that list. The user may re-upload the same image (possibly under a new name or into a new folder), so also compare md5 hashes against already-processed files and skip exact duplicates. Deduplicate at question level too: if a question's text is already in `questions.js` from the same results page, don't count it again.
 3. Make small copies in the scratchpad before reading them (`sips --resampleWidth 560`). Some screenshots have nothing to do with the quiz (for example ads), so skip those. A question can be cut off in one screenshot and complete in the next. Several screenshots from the same result page count as one miss, not several.
 4. For each question, look in `questions.js` for the same question text:
    - If it is already there, increment `misses`. Never change its `id`.
