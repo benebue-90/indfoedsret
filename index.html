@@ -85,7 +85,7 @@
 </head>
 <body>
 <div class="card" id="app"></div>
-<script src="questions.js"></script>
+<script>document.write('<script src="questions.js?v=' + Date.now() + '"><\/script>');</script>
 <script>
 (function () {
   const ROUND = 10;
