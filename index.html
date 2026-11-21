@@ -90,7 +90,9 @@
 (function () {
   const ROUND = 10;
   const KEY = "indf-v1";
-  const BOX_WEIGHT = [10, 6, 4, 2, 1]; // box 0 = svag … box 4 = sikker (kommer stadig af og til)
+  const BOX_WEIGHT = [14, 10, 6, 4, 0.5]; // box 0-1 = svag, 2-3 = på vej (prioriteret), 4 = sikker (sjældent)
+  const RETIRE_STREAK = 5; // rigtigt 5 gange i træk = lært, spørges ikke mere
+  const retired = id => (prog(id).streak || 0) >= RETIRE_STREAK;
   const Q = window.QUESTIONS || [];
   const byId = Object.fromEntries(Q.map(q => [q.id, q]));
   const app = document.getElementById("app");
@@ -116,7 +118,8 @@
     return w;
   }
   function pickRound(n) {
-    const pool = Q.slice();
+    let pool = Q.filter(q => !retired(q.id));
+    if (pool.length < n) pool = pool.concat(shuffle(Q.filter(q => retired(q.id))).slice(0, n - pool.length));
     const out = [];
     const last = new Set((state.rounds[0] && state.rounds[0].ids) || []);
     while (out.length < n && pool.length) {
@@ -133,9 +136,9 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const L = "ABCDEFG";
   function counts() {
-    let weak = 0, mid = 0, good = 0;
-    Q.forEach(q => { const b = prog(q.id).box; if (b <= 1) weak++; else if (b <= 3) mid++; else good++; });
-    return { weak, mid, good };
+    let weak = 0, mid = 0, good = 0, learned = 0;
+    Q.forEach(q => { const b = prog(q.id).box; if (retired(q.id)) learned++; else if (b <= 1) weak++; else if (b <= 3) mid++; else good++; });
+    return { weak, mid, good, learned };
   }
   function fmtDate(t) {
     const d = new Date(t);
@@ -155,7 +158,7 @@
     app.innerHTML = `
       <header><div class="title">Indfødsret <span class="pill">⚡ Mine fejl</span></div>
         <span class="timer">${Q.length} spm.</span></header>
-      <div class="bar"><div style="width:${Q.length ? (c.good / Q.length * 100) : 0}%"></div></div>
+      <div class="bar"><div style="width:${Q.length ? ((c.good + c.learned) / Q.length * 100) : 0}%"></div></div>
       <main>
         <p class="eyebrow">Status</p>
         <div class="stats">
@@ -163,6 +166,7 @@
           <div class="stat mid"><b>${c.mid}</b><span>På vej</span></div>
           <div class="stat good"><b>${c.good}</b><span>Sikre</span></div>
         </div>
+        <p class="sub" style="margin:-6px 0 16px;font-size:13px">✓ ${c.learned} lært (5 rigtige i træk) – spørges ikke mere</p>
         <button class="btn primary wide" id="start" ${n ? "" : "disabled"}>Start omgang (${n} spørgsmål)</button>
         <h2>Mine omgange${avg ? ` <span style="text-transform:none;letter-spacing:0">· snit sidste 5: ${avg}/10</span>` : ""}</h2>
         ${rounds.length ? `<ul class="hist">${rounds.slice(0, 30).map((r, i) => `
@@ -201,7 +205,7 @@
     const p = prog(q.id);
     app.innerHTML = `
       <header><button class="back" id="quit">← Mine prøver</button>
-        <span class="pill ${p.box <= 1 ? "red" : ""}">${p.box <= 1 ? "Svag" : p.box <= 3 ? "På vej" : "Sikker"}</span>
+        <span class="pill ${p.box <= 1 ? "red" : ""}">${retired(q.id) ? "Lært ✓" : p.box <= 1 ? "Svag" : p.box <= 3 ? "På vej" : "Sikker"}</span>
         <span class="timer" id="t">${fmtTime(Math.floor((Date.now() - round.start) / 1000))}</span></header>
       <div class="bar"><div style="width:${(round.i + (answered ? 1 : 0)) / total * 100}%"></div></div>
       <main>
