@@ -93,6 +93,7 @@
   const BOX_WEIGHT = [14, 10, 6, 4, 0.5]; // box 0-1 = svag, 2-3 = på vej (prioriteret), 4 = sikker (sjældent)
   const RETIRE_STREAK = 5; // rigtigt 5 gange i træk = lært, spørges ikke mere
   const retired = id => (prog(id).streak || 0) >= RETIRE_STREAK;
+  const skip = id => retired(id) || prog(id).box >= 4; // sikker + lært spørges ikke (kun hvis der ikke er nok andre)
   const Q = window.QUESTIONS || [];
   const byId = Object.fromEntries(Q.map(q => [q.id, q]));
   const app = document.getElementById("app");
@@ -118,8 +119,8 @@
     return w;
   }
   function pickRound(n) {
-    let pool = Q.filter(q => !retired(q.id));
-    if (pool.length < n) pool = pool.concat(shuffle(Q.filter(q => retired(q.id))).slice(0, n - pool.length));
+    let pool = Q.filter(q => !skip(q.id));
+    if (pool.length < n) pool = pool.concat(shuffle(Q.filter(q => skip(q.id))).slice(0, n - pool.length));
     const out = [];
     const last = new Set((state.rounds[0] && state.rounds[0].ids) || []);
     while (out.length < n && pool.length) {
@@ -166,7 +167,7 @@
           <div class="stat mid"><b>${c.mid}</b><span>På vej</span></div>
           <div class="stat good"><b>${c.good}</b><span>Sikre</span></div>
         </div>
-        <p class="sub" style="margin:-6px 0 16px;font-size:13px">✓ ${c.learned} lært (5 rigtige i træk) – spørges ikke mere</p>
+        <p class="sub" style="margin:-6px 0 16px;font-size:13px">Sikre og lærte (${c.good + c.learned}) spørges ikke mere</p>
         <button class="btn primary wide" id="start" ${n ? "" : "disabled"}>Start omgang (${n} spørgsmål)</button>
         <h2>Mine omgange${avg ? ` <span style="text-transform:none;letter-spacing:0">· snit sidste 5: ${avg}/10</span>` : ""}</h2>
         ${rounds.length ? `<ul class="hist">${rounds.slice(0, 30).map((r, i) => `
