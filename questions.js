@@ -516,5 +516,13 @@ window.QUESTIONS = [
     explain: "I Danmark sørger regeringen og den offentlige forvaltning for at føre Folketingets vedtagne love ud i livet." },
   { id: "vaudeville", q: "Hvad kendetegner scenekunstgenren vaudeville?",
     options: ["Handlingen fortælles alene gennem dans og mimik uden replikker", "Alvorlige historiske tragedier fremføres udelukkende på vers", "Dramatik og musik forenes i et lystspil, ofte om kærlighedsforviklinger"], correct: 2, misses: 1,
-    explain: "Vaudeville kombinerer dramatik og musik i lystspil, ofte med forviklede kærlighedshistorier." }
+    explain: "Vaudeville kombinerer dramatik og musik i lystspil, ofte med forviklede kærlighedshistorier." },
+
+  // --- Batch: Nov 24 2026 (del 3) ---
+  { id: "kongeslaegt-gluecksborg", q: "Hvilken kongeslægt tilhører Danmarks nuværende monark?",
+    options: ["Slægten Oldenborg", "Slægten Bernadotte", "Slægten Glücksborg"], correct: 2, misses: 1,
+    explain: "Danmarks nuværende monark tilhører slægten Glücksborg." },
+  { id: "ungarn-1956-dkp", q: "Nedkæmpelsen af en folkelig opstand mod det kommunistiske styre i hvilket land i 1956 var afgørende for splittelsen af Danmarks Kommunistiske Parti?",
+    options: ["Ungarn", "Tjekkoslovakiet", "Polen"], correct: 0, misses: 1,
+    explain: "Nedkæmpelsen af opstanden i Ungarn i 1956 var afgørende for splittelsen af Danmarks Kommunistiske Parti." }
 ];
