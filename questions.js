@@ -499,5 +499,22 @@ window.QUESTIONS = [
     explain: "Drivhuseffekten kaldes sådan, fordi drivhusgasser lukker solens stråler ind og hæmmer varmen i at slippe ud af atmosfæren." },
   { id: "moesgaard-aarhus", q: "Hvilken jysk by ligger Moesgaard Museum lidt syd for?",
     options: ["Esbjerg", "Aarhus", "Aalborg"], correct: 1, misses: 1,
-    explain: "Moesgaard Museum ligger lidt syd for Aarhus." }
+    explain: "Moesgaard Museum ligger lidt syd for Aarhus." },
+
+  // --- Batch: Nov 24 2026 (del 2) ---
+  { id: "libyen-2011-mandat", q: "Hvilken international organisation havde givet mandat til det militære indgreb i Libyen i 2011?",
+    options: ["NATO", "FN", "EU"], correct: 1, misses: 1,
+    explain: "FN gav mandat til det militære indgreb i Libyen i 2011. Mandatet kom gennem en resolution i FNs Sikkerhedsråd." },
+  { id: "foerste-oscar-instruktoer", q: "Hvem var den første danske filminstruktør, der vandt en Oscar?",
+    options: ["Gabriel Axel", "Susanne Bier", "Bille August"], correct: 0, misses: 1,
+    explain: "Gabriel Axel var den første danske filminstruktør, der vandt en Oscar for filmen \"Babettes gæstebud\" i 1988." },
+  { id: "aktindsigt-forvaltningsloven", q: "Hvilken lov giver en part i en sag ret til aktindsigt i sagens dokumenter?",
+    options: ["Retsplejeloven", "Forvaltningsloven", "Offentlighedsloven"], correct: 1, misses: 1,
+    explain: "Forvaltningsloven giver en part i en sag ret til at se og få indsigt i sagens dokumenter." },
+  { id: "love-ud-i-livet", q: "Hvem har ansvaret for at føre Folketingets vedtagne love ud i livet i Danmark?",
+    options: ["Folketingets stående udvalg", "Regeringen og den offentlige forvaltning", "Domstolene og politiet"], correct: 1, misses: 1,
+    explain: "I Danmark sørger regeringen og den offentlige forvaltning for at føre Folketingets vedtagne love ud i livet." },
+  { id: "vaudeville", q: "Hvad kendetegner scenekunstgenren vaudeville?",
+    options: ["Handlingen fortælles alene gennem dans og mimik uden replikker", "Alvorlige historiske tragedier fremføres udelukkende på vers", "Dramatik og musik forenes i et lystspil, ofte om kærlighedsforviklinger"], correct: 2, misses: 1,
+    explain: "Vaudeville kombinerer dramatik og musik i lystspil, ofte med forviklede kærlighedshistorier." }
 ];
